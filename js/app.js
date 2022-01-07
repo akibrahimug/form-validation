@@ -98,8 +98,57 @@ const colorSelect = () => {
 
 }
 
+//================================================================================================
+// Calculate the total of the selected workshops, each selected cost is added to the total and if 
+//unselected the remove from the total.
+//=======================================
+
+//Create a function 'totalCost'
+const totalCost = () => {
+    //Assign the total DOM element to the 'totalCost' variable
+    const totalCost = document.querySelector('#activities-cost');
+
+    // Create a count variable
+    let count = 0
+
+    //Assign all checkbox elements to the 'checkboxes' variable
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    
+    //Iterate through all checkboxes and listen for changes
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', e => {
+            
+            // if a checkbox is checked
+            if(e.currentTarget.checked){
+                //Assign the data-cost attribute to the 'itemCost' and ParseInt to turn a string into a number
+                const itemCost = parseInt(checkbox.getAttribute('data-cost'));
+
+                //Add the itemCost to the count
+                count += itemCost;
+
+                //Modify the total inner html to reflect the addition
+                totalCost.innerHTML = `Total: $${count}`
+                
+                //if a checkbox is unchecked
+            }else{
+
+                //Assign the data-cost attribute to the 'itemCost' and ParseInt to turn a string into a number
+                const itemCost = parseInt(checkbox.getAttribute('data-cost'));
+
+                //Subtract the itemCost to the count
+                count -= itemCost
+
+                //Modify the total inner html to reflect the subtraction
+                totalCost.innerHTML = `Total: $${count}`
+                
+            }
+        })
+    })
+}
+
 // ================
 //Call functions
 //=================
 otherJob()
 colorSelect()
+totalCost()
