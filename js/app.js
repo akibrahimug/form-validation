@@ -64,31 +64,31 @@ const colorSelect = () => {
             options.forEach(option => {
 
                 // Disable all the options 
-                option.setAttribute('disabled', 'disabled')
+                option.setAttribute('hidden', 'hidden')
 
                 //Select individual options based on their data attribute and assign them to the 'data' variable
                 const data = option.getAttribute('data-theme');
 
                 // if the data attribute is 'js puns' enable those options
                 if(data === 'js puns'){
-                    option.removeAttribute('disabled')
+                    option.removeAttribute('hidden')
                 }
             })
             
         }else if(e.target.value === 'heart js'){
-            
+
              // Iterate through all the color options 
              options.forEach(option => {
 
                 // Disable all the options 
-                option.setAttribute('disabled', 'disabled')
+                option.setAttribute('hidden', 'hidden')
 
                 //Select individual options based on their data attribute and assign them to the 'data' variable
                 const data = option.getAttribute('data-theme');
 
                 // if the data attribute is 'heart js' enable those options
                 if(data === 'heart js'){
-                    option.removeAttribute('disabled')
+                    option.removeAttribute('hidden')
                 }
             })
 
