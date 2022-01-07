@@ -49,8 +49,10 @@ const colorSelect = () => {
     const design = document.querySelector('#design');
 
     design.addEventListener('change', e => {
+
         // if the user selects an option from the design input field 
         if(e.target.value === 'js puns' || e.target.value === 'heart js'){
+
             // Enable the color input field
             color.removeAttribute('disabled')
         }
@@ -146,9 +148,81 @@ const totalCost = () => {
     })
 }
 
+ //Assign the paypal option info to the variable 'paypal'
+ const paypal = document.querySelector('#paypal');
+ //make paypal info hidden
+ paypal.style.display = 'none'
+
+ // Assign the bitcoin option info to the variable 'bitcoin'
+ const bitcoin = document.querySelector('#bitcoin');
+ //make bitcoin info hidden
+ bitcoin.style.display = 'none'
+
+//=============================================
+// Select credit card payment method by default
+// ============================================
+
+//Assign the paymet card input field to the variable 'paymentCard'
+const paymentCard = document.querySelector('#payment');
+
+// Assign the options in the paymentcard select element to the variable 'options'
+const options = paymentCard.querySelectorAll('option');
+
+// Iterate through the options
+options.forEach(option => {
+
+    // if any option value matches 'credit-card' add 'selected' attribute
+    if(option.value === 'credit-card'){
+        option.setAttribute('selected', 'selected');
+       
+    }
+})
+
+//=============================================================
+// Create a function 'paymentInfo' to show or hide information
+//depending on what paymentCard is choosen
+//==============================================================
+
+const paymentInfo = () => {
+
+    // Listen for changes on the paymentCard select input field
+    paymentCard.addEventListener('change', e => {
+
+        //if value is paypal
+        if(e.target.value === 'paypal'){
+
+            // make paypal info visible
+            paypal.style.display = 'block'
+
+            // make bitcoin info hidden
+            bitcoin.style.display = 'none'
+
+            //if value is credit-card
+        }else if(e.target.value === 'credit-card'){
+
+            // make paypal info hidden
+            paypal.style.display = 'none';
+
+            // make bitcoin info hidden
+            bitcoin.style.display = 'none'
+
+            //if value is bitcoin
+        }else if(e.target.value === 'bitcoin'){
+
+            // make bitcoin info visible
+            bitcoin.style.display = 'block';
+
+            // make paypal info hidden
+            paypal.style.display = 'none'
+        }
+    })
+
+}
+
 // ================
 //Call functions
 //=================
 otherJob()
 colorSelect()
 totalCost()
+paymentInfo()
