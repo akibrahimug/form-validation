@@ -2,9 +2,12 @@
 //===========================================
 //Focus state for the first input on the form
 //===========================================
-//Assign the name input field to the 'userName' variable 
-const userName = document.querySelector('#name').focus();
 
+//Assign the name input field to the 'userName' variable 
+const userName = document.querySelector('#name');
+
+// Add a focus state on the name input field
+userName.focus();
 //===========================================
 //Hide the Other input field on Job Role
 //===========================================
@@ -105,17 +108,18 @@ const colorSelect = () => {
 //unselected the remove from the total.
 //=======================================
 
+//Assign all checkbox elements to the 'checkboxes' variable
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+ //Assign the total DOM element to the 'totalCost' variable
+ const cost = document.querySelector('#activities-cost');
+
+ // Create a count variable
+ let count = 0
+
 //Create a function 'totalCost'
 const totalCost = () => {
-    //Assign the total DOM element to the 'totalCost' variable
-    const totalCost = document.querySelector('#activities-cost');
 
-    // Create a count variable
-    let count = 0
-
-    //Assign all checkbox elements to the 'checkboxes' variable
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-    
     //Iterate through all checkboxes and listen for changes
     checkboxes.forEach(checkbox => {
         checkbox.addEventListener('change', e => {
@@ -129,7 +133,7 @@ const totalCost = () => {
                 count += itemCost;
 
                 //Modify the total inner html to reflect the addition
-                totalCost.innerHTML = `Total: $${count}`
+                cost.innerHTML = `Total: $${count}`
                 
                 //if a checkbox is unchecked
             }else{
@@ -141,7 +145,7 @@ const totalCost = () => {
                 count -= itemCost
 
                 //Modify the total inner html to reflect the subtraction
-                totalCost.innerHTML = `Total: $${count}`
+                cost.innerHTML = `Total: $${count}`
                 
             }
         })
@@ -174,9 +178,10 @@ options.forEach(option => {
     // if any option value matches 'credit-card' add 'selected' attribute
     if(option.value === 'credit-card'){
         option.setAttribute('selected', 'selected');
-       
+        
     }
 })
+
 
 //=============================================================
 // Create a function 'paymentInfo' to show or hide information
@@ -218,6 +223,79 @@ const paymentInfo = () => {
     })
 
 }
+//=================
+//Form Validation
+//=================
+
+// Assign the email input field to the varaiable 'email'
+const email = document.querySelector('#email');
+
+// Assign the card number input field to the variable 'cardNumber'
+const cardNumber = document.querySelector('#cc-num');
+
+// Assign the zip code input field to the variable 'zipCode'
+const zipCode = document.querySelector('#zip');
+
+// Assign the cvv input field to the variable 'cvv'
+const cvv = document.querySelector('#cvv');
+
+// Assign the form html element to the variable 'form'
+const form = document.querySelector('form');
+
+// Helper function handling the regex test for all input fields
+const input = (inputTest, value, event) => {
+
+     // Test the value 
+     inputTest.test(value);
+ 
+     if(inputTest.test(value) !== true ){
+         //Prevent default submit behaviour
+         event.preventDefault();
+     }
+}
+
+// Create a function 'activity' to handle a selection from the register for activities section
+const activity = (event) => {
+
+    // if count is 0, that also means no activity was selected
+    if(count === 0 ){
+
+        // Prevent submit default behaviour
+        event.preventDefault()
+    }
+}
+
+//Create a function to handle credit-card validation
+const creditCard = (event) => {
+    // Iterate through  the options
+    options.forEach(option => {
+        //if any opotion's value is 'credit-card'
+        if(option.value === 'credit-card'){
+            //if option's attribute is 'selected'
+            if(option.getAttribute('selected') ){
+            //cardNumber
+            input(/^\d{13,16}$/, cardNumber.value, event);
+            // zipCode
+            input(/^\d{5}$/, zipCode.value, event);
+            // cvv
+            input(/^\d{3}$/, cvv.value, event);
+            }
+        }
+    })
+}
+
+// Listen for form changes before submit and make sure all fields are properly filled
+form.addEventListener('submit', e => {
+    // name
+    input(/^[(A-Z)?a-z]+\s[(A-Z)?a-z]+$/, userName.value, e);
+    // email
+    input(/^(\w)+@(\w)+\.com$/, email.value, e);
+    // activity selection
+    activity(e)
+    // creditCard
+    creditCard(e);
+   
+})
 
 // ================
 //Call functions
