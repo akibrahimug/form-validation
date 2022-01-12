@@ -315,7 +315,7 @@ const email = document.querySelector('#email');
 errorMsg(/^(\w)+@(\w)+\.com$/, email.parentElement, email)
 
 // Error Message for Username
-errorMsg(/^[(A-Z)?a-z]+\s[(A-Z)?a-z]+$/, userName.parentElement, userName)
+errorMsg(/^[a-z]+(\s[a-z]+)?$/i, userName.parentElement, userName)
 
 // Assign the card number input field to the variable 'cardNumber'
 const cardNumber = document.querySelector('#cc-num');
@@ -427,7 +427,7 @@ const creditCard = (event) => {
 // Listen for form changes before submit and make sure all fields are properly filled
 form.addEventListener('submit', e => {
     // name
-    input(/^[(A-Z)?a-z]+\s[(A-Z)?a-z]+$/, userName.value, e, userName);
+    input(/^[a-z]+(\s[a-z]+)?$/i, userName.value, e, userName);
     // email
     input(/^(\w)+@(\w)+\.com$/, email.value, e, email);
     // activity selection
